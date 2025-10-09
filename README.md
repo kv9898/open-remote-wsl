@@ -25,6 +25,18 @@ When you connect to WSL using this extension, it automatically configures Git in
 
 The extension will automatically detect and configure Git Credential Manager from standard Git for Windows installation paths. If Git Credential Manager is not found, you'll see a message in the logs, but the extension will continue to work (though you may need to enter Git credentials manually).
 
+**Troubleshooting Git Credentials:**
+
+If Git operations still fail after connecting to WSL:
+
+1. Verify that Git for Windows is installed on your Windows host
+2. Check that Git Credential Manager is enabled in Git for Windows
+3. If Git is installed in a non-standard location, you can manually configure Git in WSL:
+   ```bash
+   git config --global credential.helper "/path/to/git-credential-manager.exe"
+   ```
+4. Alternatively, you can set up SSH keys for Git authentication
+
 If you prefer to configure Git credentials manually or use a different method, you can set your own Git credential helper after connecting to WSL.
 
 ## Notes on Launching Positron from the WSL Command Line
