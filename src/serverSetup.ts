@@ -165,6 +165,48 @@ OS_RELEASE_ID=
 ARCH=
 PLATFORM=
 
+# Configure Git to use Windows Credential Manager if available
+setup_git_credential_helper() {
+    # Check if git is installed
+    if ! command -v git &> /dev/null; then
+        echo "Git not found, skipping credential helper setup"
+        return
+    fi
+
+    # Check if credential helper is already configured
+    local existing_helper
+    existing_helper=\$(git config --global --get credential.helper 2>/dev/null)
+    if [[ -n "$existing_helper" ]]; then
+        echo "Git credential helper already configured: $existing_helper"
+        return
+    fi
+
+    # Common paths for Git Credential Manager on Windows (WSL path format)
+    local GCM_PATHS=(
+        "/mnt/c/Program Files/Git/mingw64/bin/git-credential-manager.exe"
+        "/mnt/c/Program Files/Git/mingw64/libexec/git-core/git-credential-manager.exe"
+        "/mnt/c/Program Files/Git/mingw64/bin/git-credential-manager-core.exe"
+        "/mnt/c/Program Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe"
+    )
+
+    for gcm_path in "\${GCM_PATHS[@]}"; do
+        if [[ -f "\$gcm_path" ]]; then
+            echo "Configuring Git to use Windows Credential Manager: \$gcm_path"
+            git config --global credential.helper "\$gcm_path" 2>/dev/null || true
+            
+            # Also set credential.useHttpPath to true for better compatibility
+            git config --global credential.useHttpPath true 2>/dev/null || true
+            echo "Git credential helper configured successfully"
+            return
+        fi
+    done
+    
+    echo "Windows Git Credential Manager not found, Git credentials may not work"
+}
+
+# Setup Git credential helper
+setup_git_credential_helper
+
 # Mimic output from logs of remote-ssh extension
 print_install_results_and_exit() {
     echo "${id}: start"
