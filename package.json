@@ -2,7 +2,7 @@
   "name": "open-remote-wsl",
   "displayName": "Open Remote - WSL for Positron",
   "description": "Open any folder in the Windows Subsystem for Linux (WSL) for Positron.",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "publisher": "kv9898",
   "originalAuthor": "jeanp413",
   "repository": {

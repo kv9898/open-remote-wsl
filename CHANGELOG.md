@@ -1,3 +1,7 @@
+## 0.0.10
+
+- Fix Git credential forwarding to enable Git operations (clone, push, pull) when using Positron through WSL remote connection. The extension now automatically configures Git in WSL to use Windows Git Credential Manager if available.
+
 ## 0.0.9
 
 - Add support for registering this extension as an environment variable to enable launching Positron from WSL without manual editing of the Positron launcher script with after merging of PR [#6941](https://github.com/posit-dev/positron/pull/6941).
