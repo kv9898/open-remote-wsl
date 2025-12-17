@@ -12,6 +12,22 @@ export async function activate(context: vscode.ExtensionContext) {
         return;
     }
 
+    // Show deprecation warning
+    const deprecationMessage = 'This extension is no longer maintained. Since Positron 2025.11.0-234, Positron officially supports WSL with a built-in extension. Please update Positron and use the official extension instead.';
+    const learnMoreAction = 'Learn More';
+    const dontShowAgain = 'Don\'t Show Again';
+    
+    const hasShownDeprecation = context.globalState.get<boolean>('hasShownDeprecationWarning', false);
+    if (!hasShownDeprecation) {
+        vscode.window.showWarningMessage(deprecationMessage, learnMoreAction, dontShowAgain).then(selection => {
+            if (selection === learnMoreAction) {
+                vscode.env.openExternal(vscode.Uri.parse('https://github.com/posit-dev/positron/releases/tag/2025.11.0-234'));
+            } else if (selection === dontShowAgain) {
+                context.globalState.update('hasShownDeprecationWarning', true);
+            }
+        });
+    }
+
     const logger = new Log('Remote - WSL');
     context.subscriptions.push(logger);
 
