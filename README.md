@@ -1,5 +1,7 @@
 # Open Remote - WSL for Positron
 
+> **⚠️ DEPRECATED**: This extension is no longer maintained. Since [Positron 2025.11.0-234](https://github.com/posit-dev/positron/releases/tag/2025.11.0-234), Positron officially supports WSL with a built-in extension. Users are recommended to update Positron and use the official extension instead.
+
 This is a fork of [Open Remote - WSL](https://github.com/jeanp413/open-remote-wsl) adapted for [Positron](https://github.com/posit-dev/positron) only.
 
 ![Open Remote WSL](https://github.com/user-attachments/assets/30dbc136-3ca2-451f-9a3d-58d7c68b5fe6)
